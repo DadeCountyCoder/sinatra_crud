@@ -1,9 +1,9 @@
 class CreateOrdersTable < ActiveRecord::Migration
   def change
-    create_tables :orders do |t|
+    create_table :orders do |t|
       t.string :address
       t.string :item
-      t.integer :item-price
+      t.integer :item_price
       t.integer :total
     end
   end
