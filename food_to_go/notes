@@ -1,0 +1,6 @@
+got error 
+An error occurred while installing thin (1.7.2), and Bundler cannot continue.
+Make sure that `gem install thin -v '1.7.2' --source 'http://rubygems.org/'` succeeds before bundling.
+
+ fixed error by running
+ bundle config build.thin --with-cflags="-Wno-error=implicit-function-declaration"
