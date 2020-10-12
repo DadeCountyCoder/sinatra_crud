@@ -9,9 +9,9 @@ class ApplicationController < Sinatra::Base
     # set :session_secret. 'secret'
   end
 
-  get "/" do
-    # erb :welcome
-    "Hello World"
+  get "/users" do
+     erb :welcome
+    "Hello World this is my user page"
   end
 
 end
