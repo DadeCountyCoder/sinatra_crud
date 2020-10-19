@@ -6,12 +6,13 @@ class UserController < ApplicationController
     end
 
 
-    post '/users/signup' do 
+    post '/users' do 
         #params[:username]
         #params[:password]
         #params.inspect
         @user = User.create(username: params[:username], password: params[:password])
         # binding.pry
+        sessions[:user_id] = @user.id
         redirect "/users/#{@user.id}"
 
     end
@@ -19,12 +20,15 @@ class UserController < ApplicationController
     
 
     get '/users/:id/' do
-        "this is a show page"
+        #"this is a show page"
         @user = User.find(params[:id]) 
+        #binding.pry
         erb :'/users/show'
     end
         #showpage
 
-    end
+end
 
 
+# sessions = {}
+# sessions[:key] = value
