@@ -6,7 +6,7 @@ class UserController < ApplicationController
     end
 
 
-    post '/users' do 
+    post '/users/signup' do 
         #params[:username]
         #params[:password]
         #params.inspect
@@ -15,6 +15,23 @@ class UserController < ApplicationController
         sessions[:user_id] = @user.id
         redirect "/users/#{@user.id}"
 
+    end
+
+    get '/users/login' do
+        #if user is logged in 
+        #redirect to their home page
+        #else, show them the login form
+        erb :'/users/login'
+
+    end
+
+
+    post '/users/login' do
+        #want to find user, if exists
+      @user = User.find_by(username: params[:username])
+      #authenticate password
+      if  params[:password] == @user.password
+      
     end
 
     
