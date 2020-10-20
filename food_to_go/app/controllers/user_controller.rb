@@ -31,6 +31,8 @@ class UserController < ApplicationController
       @user = User.find_by(username: params[:username])
       #authenticate password
       if  params[:password] == @user.password
+        #salt or encrypt your password
+      end
       
     end
 
