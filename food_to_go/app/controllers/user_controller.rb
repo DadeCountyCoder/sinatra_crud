@@ -7,21 +7,39 @@ class UserController < ApplicationController
 
 
     post '/users/signup' do 
+
+        if params[:username] == "" && params[:password] == ""
+            redirect "/users/signup"
+       
         #params[:username]
         #params[:password]
-        #params.inspect
+        #params.inspect 
+        else
         @user = User.create(username: params[:username], password: params[:password])
         # binding.pry
-        sessions[:user_id] = @user.id
-        redirect "/users/#{@user.id}"
-
+       
+        # if @user.username == "" && @user.password == ""
+        #     redirect "/users/signup"
+    
+            #@user.save
+            sessions[:user_id] = @user.id
+            redirect "/users/#{@user.id}"
+            #was redirect_to
+        #creates user object
+        # end
+        end
     end
 
     get '/users/login' do
         #if user is logged in 
         #redirect to their home page
         #else, show them the login form
+        if logged_in?
+            @user = User.find(session[:user_id])
+            redirect "/users/#{@user.id}"  
+        else
         erb :'/users/login'
+        end
 
     end
 
@@ -30,11 +48,22 @@ class UserController < ApplicationController
         #want to find user, if exists
       @user = User.find_by(username: params[:username])
       #authenticate password
-      if  params[:password] == @user.password
+      #if  params[:password] == @user.password
         #salt or encrypt your password
-      end
+    #   end
       
+    # end
+
+    if @user && @user.authenticate(params[:password])
+        session[:user_id] = @user.id
+        redirect "/users/#{@user.id}"
+        #authenticate password
+    else
+        redirect "/users/login"
+        #not vali
+        #redirect to login
     end
+end
 
     
 
@@ -46,8 +75,12 @@ class UserController < ApplicationController
     end
         #showpage
 
-end
+    get '/users/logout' do 
+        sessions.clear
+        redirect '/users/login'
+    end
 
 
 # sessions = {}
 # sessions[:key] = value
+end

@@ -10,23 +10,29 @@ class ApplicationController < Sinatra::Base
   end 
 
   get '/' do
-      "hello world"
+      #"hello world"
+      erb :welcome
   
   end
 
 
-  get "/users" do
+  get "/users/" do
      erb :welcome
-    "Hello World this is my user page"
+    #"Hello World this is my user page"
   end
 
   post '/users/signup' do
     erb :welcome
   end
 
+  def logged_in? #return a true or false value
+    !!session[:user_id]
+  end
+  
+  # get '/login' do
+  #   "erb :login"
 
-  # get "/goodbye" do
+  #get "/goodbye" do
   #   erb:goodbye
   # end
-
-end
+ end
